@@ -3,9 +3,12 @@ import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
+import FileUpload from '@/components/FileUploads'
 
 export default  function Home() {
   const [users, setUsers] = useState([])
+
+
 
   useEffect( () => {
     fetch('http://localhost:3000/api')
@@ -13,19 +16,23 @@ export default  function Home() {
     .then((res)=> {
       const data = res.results;
       setUsers(data)
-      console.log(data)
     })
     .catch((error) => {
       console.log(error);
     });
 
   }, [])
+
+
+  
   
   return (
     <>
       <Head>
+        <title>Nextjs app testing</title>
       </Head>
       <main className="">
+      <FileUpload />
         <table>
             <tr>
               <th>User ID</th>

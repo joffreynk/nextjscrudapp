@@ -4,8 +4,6 @@ const mysql = require('mysql2/promise');
 
 export default async function handler(req, res) {
 
-  console.log(req);
-
     // create the pool
     const conection = await mysql.createConnection({
       host:'localhost',
