@@ -1,25 +1,24 @@
+// import Connection from 'mysql2/typings/mysql/lib/Connection';
+
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-const mysql = require('mysql2/promise');
+import mysql from 'mysql2';
 
 
-export default async function handler(req, res) {
+export default function handler(req, res) {
 
     // create the pool
-    const conection = await mysql.createConnection({
+    const connection = mysql.createConnection({
       host:'localhost',
       user: 'root',
-      database: 'nextjscrudapp',
-      // socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock",
+      database: 'practice',
     });
+    const sql = 'select * from users'
 
-    try {
-      const query = 'select * from users'
-      const [data] = await conection.execute(query, []);
-      conection.end();
-      res.status(200).json({results: data});  
-    } catch (error) {
-      
-      res.status(500).json({error: error.message});
-    }
+    console.log(`===============   ${__dirname} ${res.host}   ==============`);
+
+    connection.query(sql, (err, data)=>{
+      if (err) return res.status(401).json({ error: "OOOps failed to create connection"});
+      res.status(200).json(data);
+    })
 
 }

@@ -14,8 +14,7 @@ export default  function Home() {
     fetch('http://localhost:3000/api')
     .then((response)=> response.json())
     .then((res)=> {
-      const data = res.results;
-      setUsers(data)
+      setUsers(res)
     })
     .catch((error) => {
       console.log(error);
@@ -23,7 +22,7 @@ export default  function Home() {
 
   }, [])
 
-
+console.log("Running");
   
   
   return (
@@ -34,21 +33,24 @@ export default  function Home() {
       <main className="">
       <FileUpload />
         <table>
+              <thead>
             <tr>
               <th>User ID</th>
               <th>Full Name</th>
               <th>User Name</th>
               <th>Email</th>
-              <th></th>
             </tr>
+              </thead>
+              <tbody>
             {users.map(user=><tr key={user.id} >
               <td>{user.id}</td>
-              <td>{user.fullName}</td>
+              <td> {user.lastName} {user.firstName }</td>
               <td>{user.username}</td>
               <td>{user.email}</td>
               <td></td>
             </tr>
              )}
+             </tbody>
         </table>
 
       </main>

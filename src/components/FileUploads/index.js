@@ -13,7 +13,9 @@ export default function FileUpload() {
   const onSubmit = data => {
     console.log('called');
     data = {...data, profile:data.profile[0]}
-    console.log(data);
+    const formData = new FormData(data);
+    console.log(formData);
+
   }
 
   return (
