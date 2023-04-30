@@ -1,7 +1,6 @@
-const upload = (req, res) => {
-    console.log(req);
-    console.log("backend upload API called");
-    res.status(201).json({name: "Joffrey Upload"})
+
+const createUser = () => {
+    
 }
 
-export default upload;
+export default createUser;
