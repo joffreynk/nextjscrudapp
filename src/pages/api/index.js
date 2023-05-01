@@ -1,10 +1,8 @@
-// import Connection from 'mysql2/typings/mysql/lib/Connection';
-
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import mysql from 'mysql2';
 
 
 export default function handler(req, res) {
+  console.log(req.body);
 
     // create the pool
     const connection = mysql.createConnection({
@@ -12,9 +10,14 @@ export default function handler(req, res) {
       user: 'root',
       database: 'practice',
     });
-    const sql = 'select * from users'
 
-    console.log(`===============   ${__dirname} ${res.host}   ==============`);
+    if (req.body){
+      const addUser = 'INSERT INTO users (userName, lastName, firstName, email) VALUES(?, ?, ?, ?)';
+      const [userName, lastName, firstName, email] = req.body
+      connection.query(addUser, [userName, lastName, firstName, email], (error, result) => {
+      })
+    }
+    const sql = 'select * from users';
 
     connection.query(sql, (err, data)=>{
       if (err) return res.status(401).json({ error: "OOOps failed to create connection"});

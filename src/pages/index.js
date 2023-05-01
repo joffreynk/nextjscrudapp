@@ -5,6 +5,7 @@ import CreateUser from '@/components/createUser'
 
 export default  function Home() {
   const [users, setUsers] = useState([])
+  const [newUser, setNewUser] = useState([])
 
 
 
@@ -18,7 +19,7 @@ export default  function Home() {
       console.log(error);
     });
 
-  }, [])
+  }, [newUser, users])
 
 console.log("Running");
   
@@ -29,7 +30,7 @@ console.log("Running");
         <title>Nextjs app testing</title>
       </Head>
       <main className="">
-      <CreateUser />
+      <CreateUser setNewUser={{setNewUser}} />
         <table>
               <thead>
             <tr>
