@@ -7,26 +7,27 @@ const schema = yup.object({
   age: yup.number().positive().integer().required(),
 }).required();
 
-export default function FileUpload() {
+export default function CreateUser() {
   const { register, handleSubmit, formState:{ errors }} = useForm({resolver: yupResolver(schema)});
   
   const onSubmit = data => {
-    console.log('called');
-    data = {...data, profile:data.profile[0]}
-    const formData = new FormData(data);
-    console.log(formData);
 
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <input type='text' {...register("firstName")} />
-      <input type='file' {...register("profile")} />
       <p>{errors.firstName?.message}</p>
+
+      <input type='text' {...register("lastName")} />
+      <p>{errors.lastName?.message}</p>
+
+      <input type='text' {...register("userName")} />
+      <p>{errors.userName?.message}</p>
+
+      <input type='email' {...register("email")} />
+      <p>{errors.email?.message}</p>
         
-      <input type='number' {...register("age")} />
-      <p>{errors.age?.message}</p>
-      
       <input type="submit" />
     </form>
   );

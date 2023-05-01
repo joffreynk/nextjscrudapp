@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import Head from 'next/head'
-import Image from 'next/image'
-import styles from '@/styles/Home.module.css'
-import FileUpload from '@/components/FileUploads'
+import CreateUser from '@/components/createUser'
 
 export default  function Home() {
   const [users, setUsers] = useState([])
@@ -31,7 +29,7 @@ console.log("Running");
         <title>Nextjs app testing</title>
       </Head>
       <main className="">
-      <FileUpload />
+      <CreateUser />
         <table>
               <thead>
             <tr>
