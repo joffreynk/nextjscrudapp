@@ -5,7 +5,8 @@ import CreateUser from '@/components/createUser'
 
 export default  function Home() {
   const [users, setUsers] = useState([])
-  const [newUser, setNewUser] = useState([])
+  const [error, setError] = useState()
+  const [newUser, setNewUser] = useState('')
 
 
 
@@ -13,15 +14,15 @@ export default  function Home() {
     fetch('http://localhost:3000/api')
     .then((response)=> response.json())
     .then((res)=> {
+      setNewUser(null)
       setUsers(res)
     })
     .catch((error) => {
-      console.log(error);
+      setError(error)
     });
 
-  }, [newUser, users])
-
-console.log("Running");
+  }, [newUser])
+  if (error) return error
   
   
   return (
@@ -30,7 +31,7 @@ console.log("Running");
         <title>Nextjs app testing</title>
       </Head>
       <main className="">
-      <CreateUser setNewUser={{setNewUser}} />
+      <CreateUser setNewUser={setNewUser} />
         <table>
               <thead>
             <tr>
@@ -41,7 +42,7 @@ console.log("Running");
             </tr>
               </thead>
               <tbody>
-            {users.map(user=><tr key={user.id} >
+            {users.length && users.map(user=><tr key={user.id} >
               <td>{user.id}</td>
               <td> {user.lastName} {user.firstName }</td>
               <td>{user.username}</td>

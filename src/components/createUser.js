@@ -10,7 +10,7 @@ const schema = yup.object({
   email: yup.string().required(),
 }).required();
 
-export default function CreateUser() {
+export default function CreateUser({setNewUser}) {
   const { register, handleSubmit, formState:{ errors }} = useForm({resolver: yupResolver(schema)});
   const [error, setError] = useState('')
   
@@ -22,9 +22,11 @@ export default function CreateUser() {
         'Content-Type': 'application/json'
       }
     }
-    fetch('http://localhost:3000/api', params)
-    .then(response=>response.json)
-    .then(res)
+    fetch('http://localhost:3000/api/createuser', params)
+    .then(response=>response.json())
+    .then(res=>{
+      setNewUser(res.result)
+    })
   }
 
   return (
