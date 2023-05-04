@@ -16,25 +16,25 @@ const upload = multer({ storage: storage });
 
 
 export default async  function createUser(req, res) {
+  // const {username} = req.body
 
-
+  const { firstName, lastName } = req.body;
+  console.log(req.body);
+  console.log(`===========${firstName}===========`);
 
 
   try {
-    await upload.single('image')(req, res, async (err) => {
+    await upload.single('file')(req, res, async (err) => {
       if (err) {
         console.error(err);
         return res.status(400).json({ message: 'Failed to upload image' });
       }
 
       // extract file path and other metadata
-      const { path, filename } = req.file;
-      const { firstName, lastName } = req.body;
+      // const { path, filename } = req.file;
+
 
       // insert file path and metadata into database
-      console.log(path);
-      console.log(filename);
-      console.log(firstName);
 
       return res.status(200).json({ message: 'Image uploaded successfully' });
 

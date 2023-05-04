@@ -6,22 +6,22 @@ export default function AddUser({setNewUser}) {
   const [error, setError] = useState()
   const [userinfo, setUserInfo] = useState({})
   const [image, setImage] = useState()
-  console.log(image);
   
-  const createUserToAPI = async() => {
+  const createUserToAPI = async(e) => {
+    e.preventDefault()
     try {
       const formData = new FormData();
-      formData.append('image', image);
+      formData.append('file', image);
       formData.append('firstName', userinfo.firstName);
       formData.append('lastName', userinfo.lastName);
       formData.append('userName', userinfo.userName);
       formData.append('email', userinfo.email);
 
       console.log(formData);
-
       const response = await fetch('http://localhost:3000/api/createuser', {
         method: 'POST',
-        body: formData,
+        body: formData, //JSON.stringify(formData),
+        headers: { 'Content-Type': 'multipart/form-data; boundary=--------------------------1234567890'},
       });
   
       const data = await response.json();
@@ -35,9 +35,9 @@ export default function AddUser({setNewUser}) {
 
   return (
     <div>
-      <form enctype="multipart/form-data">
+      <form  onSubmit={createUserToAPI}>
       <div>
-      <input type='file' name="image" accept="image/*" id="image" onChange={(e)=>setImage(e.target.files[0])} />
+      <input type='file' name="file" accept="image/*" id="file" onChange={(e)=>setImage(e.target.files[0])} />
       {/* <p>{errors.cover?.message}</p> */}
       </div>
       <div>
@@ -56,7 +56,7 @@ export default function AddUser({setNewUser}) {
       <input type='email' id="email" onChange={(e)=>setUserInfo({...userinfo, email: e.target.value})} />
       {/* <p>{errors.email?.message}</p> */}
       </div>
-      <button type="button" onClick={createUserToAPI} >Submit</button>
+      <button type="submit"  >Submit</button>
     </form>
     </div>
   );
