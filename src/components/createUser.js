@@ -16,18 +16,21 @@ export default function CreateUser({setNewUser}) {
   const [error, setError] = useState()
   
   const createUserToAPI = data => {
-    // const formData = new FormData()
+    let tt = new FormData()
 
-    // formData.append('cover', data.cover[0])
-    // formData.append('firstName', data.firstName)
-    // formData.append('userName', data.userName)
-    // formData.append('lastName', data.lastName)
-    // formData.append('email', data.email)
+    tt.set('cover', data.cover[0])
+    tt.set('firstName', data.firstName)
+    tt.set('userName', data.userName)
+    tt.set('lastName', data.lastName)
+    tt.set('email', data.email)
+
+    // console.log({...data, cover: data.cover[0]});
+    console.log(tt);
     const params = {
       method: 'POST',
-      body: JSON.stringify({...data, cover: data.cover[0]}),
+      body: new FormData({...data, cover: data.cover[0]}),
       header: { 
-        'Content-Type': 'application/json',
+        'Content-Type': 'multipart/form-data',
        },
     }
     fetch('http://localhost:3000/api/createuser', params)
@@ -45,11 +48,11 @@ export default function CreateUser({setNewUser}) {
     <div>
       <form onSubmit={handleSubmit(createUserToAPI)}>
       <div>
-      <input type='file' {...register("cover")} />
-      <p>{errors.cover?.message}</p>
+      <input type='file' accept="image/*" {...register("cover")}/>
+      {/* <p>{errors.cover?.message}</p> */}
       </div>
       <div>
-      <input type='text' {...register("firstName")} />
+      <input type='text'  {...register("firstName")} />
       <p>{errors.firstName?.message}</p>
       </div>
       <div>

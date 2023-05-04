@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 import Head from 'next/head'
 import CreateUser from '@/components/createUser'
+import AddUser from '@/components/addUser'
 
 export default  function Home() {
   const [users, setUsers] = useState([])
@@ -31,7 +32,8 @@ export default  function Home() {
         <title>Nextjs app testing</title>
       </Head>
       <main className="">
-      <CreateUser setNewUser={setNewUser} />
+      {/* <CreateUser setNewUser={setNewUser} /> */}
+      <AddUser setNewUser={setNewUser} />
         <table>
               <thead>
             <tr>
