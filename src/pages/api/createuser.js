@@ -4,7 +4,6 @@ import multer from 'multer';
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    console.log(`===========${file.originalname}===========`);
     cb(null, './public/images'); // save images to the public/images directory
   },
   filename: function (req, file, cb) {
@@ -14,29 +13,32 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
 
 export default async  function createUser(req, res) {
-  // const {username} = req.body
-
-  const { firstName, lastName } = req.body;
-  console.log(req.body);
-  console.log(`===========${firstName}===========`);
-
-
   try {
-    await upload.single('file')(req, res, async (err) => {
+    await upload.single('image')(req, res, async (err) => {
       if (err) {
         console.error(err);
         return res.status(400).json({ message: 'Failed to upload image' });
       }
 
       // extract file path and other metadata
-      // const { path, filename } = req.file;
+      const { path, filename } = req.file;
+      console.log(path);
 
 
       // insert file path and metadata into database
+      req.body?console.log(req.body):"body doesn't exist";
+      if(req.file) console.log('file came in');
+      const mypath = path.split('/')
 
-      return res.status(200).json({ message: 'Image uploaded successfully' });
+      return res.status(200).json({ message: 'Image uploaded successfully', path: `/${mypath.slice(1, mypath.length).join('/')}` });
 
 
       // const connection = await getConnection();
