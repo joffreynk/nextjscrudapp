@@ -62,6 +62,8 @@ export default function AddUser({setNewUser}) {
       <button type="submit"  >Submit</button>
     </form>
 
+    {/* <Image src="http://localhost:3000/images/1683414526276-IMG_1805.JPG" alt="" width={300} height={300} /> */}
+
     {path?<Image src={path} alt="" width={300} height={300} />:"image is not set"}
     </div>
   );

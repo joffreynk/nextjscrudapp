@@ -4,36 +4,15 @@ import Head from 'next/head'
 import CreateUser from '@/components/createUser'
 import AddUser from '@/components/addUser'
 
-export default  function Home() {
-  const [users, setUsers] = useState([])
-  const [error, setError] = useState()
-  const [newUser, setNewUser] = useState('')
+export default  function Home({users}) {
 
-
-
-  useEffect( () => {
-    fetch('http://localhost:3000/api')
-    .then((response)=> response.json())
-    .then((res)=> {
-      setNewUser(null)
-      setUsers(res)
-    })
-    .catch((error) => {
-      setError(error)
-    });
-
-  }, [newUser])
-  if (error) return error
-  
-  
   return (
     <>
       <Head>
         <title>Nextjs app testing</title>
       </Head>
       <main className="">
-      {/* <CreateUser setNewUser={setNewUser} /> */}
-      <AddUser setNewUser={setNewUser} />
+      <AddUser  />
         <table>
               <thead>
             <tr>
@@ -49,13 +28,27 @@ export default  function Home() {
               <td> {user.lastName} {user.firstName }</td>
               <td>{user.username}</td>
               <td>{user.email}</td>
-              <td></td>
             </tr>
              )}
              </tbody>
         </table>
 
+        {console.log('Reruning')}
+
       </main>
     </>
   )
+}
+
+
+export const getServerSideProps  = async() =>{
+
+  const response = await fetch('http://localhost:3000/api');
+  const data = await response.json();
+
+ return {
+  props: {
+    users: data,
+  }
+ }
 }
