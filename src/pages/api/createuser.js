@@ -21,6 +21,7 @@ export const config = {
 
 
 export default async  function createUser(req, res) {
+  console.log('==================== backend hittted =================');
   try {
     await upload.single('image')(req, res, async (err) => {
       console.log(req.body);

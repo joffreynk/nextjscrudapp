@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 
 import Head from 'next/head'
 import CreateUser from '@/components/createUser'
-import AddUser from '@/components/addUser'
 
 export default  function Home({users}) {
 
@@ -12,8 +11,7 @@ export default  function Home({users}) {
         <title>Nextjs app testing</title>
       </Head>
       <main className="">
-      <AddUser  />
-      {/* <CreateUser /> */}
+      <CreateUser  />
         <table>
               <thead>
             <tr>
