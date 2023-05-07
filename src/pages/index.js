@@ -13,6 +13,7 @@ export default  function Home({users}) {
       </Head>
       <main className="">
       <AddUser  />
+      {/* <CreateUser /> */}
         <table>
               <thead>
             <tr>

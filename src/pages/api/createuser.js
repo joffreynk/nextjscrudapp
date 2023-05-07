@@ -23,6 +23,7 @@ export const config = {
 export default async  function createUser(req, res) {
   try {
     await upload.single('image')(req, res, async (err) => {
+      console.log(req.body);
       if (err) {
         return res.status(400).json({ message: 'Failed to upload image' });
       }

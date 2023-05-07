@@ -2,53 +2,50 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { useState } from "react";
+import Image from "next/image";
 
 const schema = yup.object({
-  cover: yup.mixed().required(),
+  // image: yup.mixed().required(),
   firstName: yup.string().required(),
   userName: yup.string().required(),
   lastName:  yup.string().required(),
   email: yup.string().required(),
 }).required();
 
-export default function CreateUser({setNewUser}) {
+export default function CreateUser() {
   const { register, handleSubmit, formState:{ errors }} = useForm({resolver: yupResolver(schema)});
-  const [error, setError] = useState()
+  const [path, setPath] = useState()
+  const [image, setImage] = useState()
   
   const createUserToAPI = data => {
     let tt = new FormData()
 
-    tt.set('cover', data.cover[0])
+    tt.set('image', image)
     tt.set('firstName', data.firstName)
     tt.set('userName', data.userName)
     tt.set('lastName', data.lastName)
     tt.set('email', data.email)
 
-    // console.log({...data, cover: data.cover[0]});
-    console.log(tt);
     const params = {
       method: 'POST',
-      body: new FormData({...data, cover: data.cover[0]}),
-      header: { 
-        'Content-Type': 'multipart/form-data',
-       },
+      body: tt,
+      'content-type': 'multipart/form-data; boundary=----WebKitFormBoundary5GT3XfgkP0Jl4KV7',
     }
     fetch('http://localhost:3000/api/createuser', params)
     .then(response=>response.json())
     .then(res=>{
-      setNewUser(res.result)
+      setPath(res.path);
     }).catch(err=>{
       console.log(err);
     })
   }
 
-  if(error) return error.message
 
   return (
     <div>
       <form onSubmit={handleSubmit(createUserToAPI)}>
       <div>
-      <input type='file' accept="image/*" {...register("cover")}/>
+      <input type='file' name="image" accept="image/*" id="image" onChange={(e)=>setImage(e.target.files[0])} />
       {/* <p>{errors.cover?.message}</p> */}
       </div>
       <div>
@@ -69,6 +66,8 @@ export default function CreateUser({setNewUser}) {
       </div>
       <input type="submit" />
     </form>
+
+    {path?<Image src={path} alt="" width={300} height={300} />:"image is not set"}
     </div>
   );
 }

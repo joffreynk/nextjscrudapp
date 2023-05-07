@@ -26,7 +26,6 @@ export default function AddUser({setNewUser}) {
     })
     .then(response =>response.json())
     .then(res => {
-      console.log(res);
       setPath(res.path);
     })
     .catch(err => {
