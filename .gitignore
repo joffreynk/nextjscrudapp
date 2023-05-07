@@ -12,7 +12,7 @@
 /.next/
 /out/
 
-/public/images
+/public/images/*
 # production
 /build
 /images
