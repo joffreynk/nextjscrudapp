@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint"
   },
+  
   "dependencies": {
     "@hookform/resolvers": "^2.9.11",
     "axios": "^1.4.0",

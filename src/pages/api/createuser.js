@@ -20,8 +20,7 @@ export const config = {
 };
 
 
-export default async  function createUser(req, res) {
-  console.log('==================== backend hittted =================');
+const post = async(req, res)=>{
   try {
     await upload.single('image')(req, res, async (err) => {
       console.log(req.body);
@@ -61,3 +60,15 @@ export default async  function createUser(req, res) {
     //   return res.status(200).json({ result: 'user created successfully'})
     // })
 }
+
+export default   function createUser(req, res) {
+  const method = req.method
+   switch (method){
+    case 'POST': post(req, res);
+    c
+    be
+   }
+}
+
+
+con
