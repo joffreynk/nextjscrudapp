@@ -19,7 +19,7 @@ export const config = {
 };
 
 
-const post = async(req, res)=>{
+const addUser = async(req, res)=>{
   console.log(req);
   try {
     await upload.single('image')(req, res, async (err) => {
@@ -61,18 +61,46 @@ const post = async(req, res)=>{
     // })
 }
 
+const getUsers = (req, res) => {
+  try {
+    return res.status(200).json({ message: 'Image retrieved successfully'});
+  } catch (error) {
+    console.log(error);
+    return res.status(200).json({ message: 'Image retrieved failed' });
+  }
+}
+
+
+const editUser = (req, res) => {
+  try {
+    return res.status(200).json({ message: 'user Updated successfully'});
+  } catch (error) {
+    console.log(error);
+    return res.status(200).json({ message: 'user is not Updated' });
+  }
+}
+
+const deleteUser = (req, res) => {
+  try {
+    return res.status(200).json({ message: 'user deleted successfully'});
+  } catch (error) {
+    console.log(error);
+    return res.status(200).json({ message: 'user is not deleted' });
+  }
+}
+
 export default   function createUser(req, res) {
   const method = req.method
    switch (method){
-    case 'POST': post(req, res);
+    case 'POST': addUser(req, res);
     break;
-    case 'GET': get(req, res);
+    case 'GET': getUsers(req, res);
     break;
-    case 'PUT': put(req, res);
+    case 'PUT': editUser(req, res);
     break;
-    case 'DELETE': delete(req, res);
+    case 'DELETE': deleteUser(req, res);
     break;
-    default: get(req, res);
+    default: getUser(req, res);
     break;
    }
 }
