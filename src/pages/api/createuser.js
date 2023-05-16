@@ -30,33 +30,23 @@ const addUser = async(req, res)=>{
       // extract file path and other metadata
       const { path, filename } = req.file;
 
+      const imgURL = `${fullUrl}/${path.split('/').slice(1, mypath.length).join('/')}`
+
 
       // insert file path and metadata into database
+      const {userName, lastName, firstName, email} = req.body;
 
-      return res.status(200).json({ message: 'Image uploaded successfully', path: `${fullUrl}/${path.split('/').slice(1, mypath.length).join('/')}` });
-
-
-      // const connection = await getConnection();
-      // const result = await connection.query(
-      //   'INSERT INTO images (name, description, path, filename) VALUES (?, ?, ?, ?)',
-      //   [name, description, path, filename]
-      // );
-      // console.log(result);
-
-      // return res.status(200).json({ message: 'Image uploaded successfully' });
+      const connection = await getConnection();
+      const result = await connection.query(
+        'INSERT INTO users (userName, lastName, firstName, email, profilepicture) VALUES(?, ?, ?, ?, ?)',
+          [userName, lastName, firstName, email, imgURL]
+        );
+      return res.status(200).json({ message: 'Image uploaded successfully' });
     });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: 'An error occurred while uploading'})
   }
-  
-    // const addUser = 'INSERT INTO users (userName, lastName, firstName, email) VALUES(?, ?, ?, ?)';
-    // const {userName, lastName, firstName, email} = req.body
-
-    // connection.query(addUser, [userName, lastName, firstName, email], (error, data) => {
-    //   if(error) return res.status(401).json({ error: error.message})
-    //   return res.status(200).json({ result: 'user created successfully'})
-    // })
 }
 
 const getUsers = async(req, res) => {
