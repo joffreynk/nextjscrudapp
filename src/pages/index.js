@@ -6,7 +6,8 @@ import Image from 'next/image';
 
 export default  function Home({users}) {
 
-  const deleteUser = (id)=>{
+  const deleteUser = (id, url)=>{
+    const retrievedUrl = url.split('/').slice(3, -1);
     console.log(id);
   }
 
@@ -36,7 +37,7 @@ export default  function Home({users}) {
                   <td>{user.username}</td>
                   <td> <Image src={user.profilepicture} width={100} height={100} alt='' /> </td>
                   <td>{user.email}</td>
-                  <td onClick={()=>deleteUser(user.id)}><button>Delete</button> </td>
+                  <td onClick={()=>deleteUser(user.id, user.profilepicture)}><button>Delete</button> </td>
                 </tr>
                 )}
                 </tbody>

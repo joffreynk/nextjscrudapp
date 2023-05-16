@@ -28,11 +28,9 @@ const addUser = async(req, res)=>{
       }
 
       // extract file path and other metadata
-      const { path, filename } = req.file;
+      const { path } = req.file;
 
-      const mypath = path.split('/')
-
-      const imgURL = `${fullUrl}/${mypath.slice(1, mypath.length).join('/')}`
+      const imgURL = `${fullUrl}/${path.split('/').slice(1).join('/')}`
 
 
       // insert file path and metadata into database
@@ -42,7 +40,7 @@ const addUser = async(req, res)=>{
 
       connection.query(sql, values, (err, result) => {
         if (err) {
-          
+
           return res.status(404).json({message: 'Image was upl'})
         }
         console.log(result);
