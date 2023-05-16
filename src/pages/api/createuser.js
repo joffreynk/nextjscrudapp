@@ -20,10 +20,9 @@ export const config = {
 
 
 const addUser = async(req, res)=>{
-  console.log(req);
+  let fullUrl = req.headers.origin
   try {
     await upload.single('image')(req, res, async (err) => {
-      console.log(req.body);
       if (err) {
         return res.status(400).json({ message: 'Failed to upload image' });
       }
@@ -33,9 +32,8 @@ const addUser = async(req, res)=>{
 
 
       // insert file path and metadata into database
-      const mypath = path.split('/')
 
-      return res.status(200).json({ message: 'Image uploaded successfully', path: `/${mypath.slice(1, mypath.length).join('/')}` });
+      return res.status(200).json({ message: 'Image uploaded successfully', path: `${fullUrl}/${path.split('/').slice(1, mypath.length).join('/')}` });
 
 
       // const connection = await getConnection();
@@ -89,6 +87,8 @@ const deleteUser = async(req, res) => {
   }
 }
 
+
+
 export default   function createUser(req, res) {
   const method = req.method
    switch (method){
@@ -104,6 +104,3 @@ export default   function createUser(req, res) {
     break;
    }
 }
-
-
-con

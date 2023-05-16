@@ -34,6 +34,7 @@ export default function CreateUser() {
     fetch('http://localhost:3000/api/createuser', params)
     .then(response=>response.json())
     .then(res=>{
+      console.log(res);
       setPath(res.path);
     }).catch(err=>{
       console.log(err);
