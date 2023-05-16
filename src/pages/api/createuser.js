@@ -1,7 +1,6 @@
 // import {connection} from "./connection.js";
 
 import multer from 'multer';
-
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, './public/images'); // save images to the public/images directory
@@ -21,6 +20,7 @@ export const config = {
 
 
 const post = async(req, res)=>{
+  console.log(req);
   try {
     await upload.single('image')(req, res, async (err) => {
       console.log(req.body);
@@ -65,8 +65,15 @@ export default   function createUser(req, res) {
   const method = req.method
    switch (method){
     case 'POST': post(req, res);
-    c
-    be
+    break;
+    case 'GET': get(req, res);
+    break;
+    case 'PUT': put(req, res);
+    break;
+    case 'DELETE': delete(req, res);
+    break;
+    default: get(req, res);
+    break;
    }
 }
 
