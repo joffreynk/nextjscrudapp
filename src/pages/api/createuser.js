@@ -61,7 +61,7 @@ const addUser = async(req, res)=>{
     // })
 }
 
-const getUsers = (req, res) => {
+const getUsers = async(req, res) => {
   try {
     return res.status(200).json({ message: 'Image retrieved successfully'});
   } catch (error) {
@@ -71,7 +71,7 @@ const getUsers = (req, res) => {
 }
 
 
-const editUser = (req, res) => {
+const editUser = async(req, res) => {
   try {
     return res.status(200).json({ message: 'user Updated successfully'});
   } catch (error) {
@@ -80,7 +80,7 @@ const editUser = (req, res) => {
   }
 }
 
-const deleteUser = (req, res) => {
+const deleteUser = async(req, res) => {
   try {
     return res.status(200).json({ message: 'user deleted successfully'});
   } catch (error) {
