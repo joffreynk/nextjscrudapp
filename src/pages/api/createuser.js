@@ -75,6 +75,7 @@ const editUser = async(req, res) => {
 }
 
 const deleteUser = async(req, res) => {
+  console.log(req.body);
   try {
     return res.status(200).json({ message: 'user deleted successfully'});
   } catch (error) {

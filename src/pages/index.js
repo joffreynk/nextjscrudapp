@@ -5,10 +5,38 @@ import CreateUser from '@/components/createUser'
 import Image from 'next/image';
 
 export default  function Home({users}) {
-
+  
   const deleteUser = (id, url)=>{
-    const retrievedUrl = url.split('/').slice(3, -1);
-    console.log(id);
+    const formData = new FormData()
+    const retrievedUrl = url.split('/').slice(3).join('/');
+
+    formData.append('userId', id)
+    formData.append('filepath',`./public/${retrievedUrl}`)
+
+    const mybody = JSON.stringify({
+      userId: id,
+      filepath: `./public/${retrievedUrl}`
+    })
+
+    const params = {
+      method: 'DELETE',
+      body: mybody,
+      // headers: {
+        'content-type':'application/json; boundary=----WebKitFormBoundary5GT3XfgkP0Jl4KV7',
+      // }
+      // //   userId: id,
+      // //  filepath: `./public/${retrievedUrl}`,
+
+    }
+
+    fetch('http://localhost:3000/api/createuser', params)
+    .then(response=>response.json())
+    .then(res=>{
+      console.log(res);
+    })
+    .catch(err=>{
+      console.log(err);
+    })
   }
 
   return (
