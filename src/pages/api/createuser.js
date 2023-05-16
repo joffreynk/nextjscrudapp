@@ -1,4 +1,4 @@
-// import {connection} from "./connection.js";
+import {connection} from "./connection.js";
 
 import multer from 'multer';
 const storage = multer.diskStorage({
@@ -30,18 +30,26 @@ const addUser = async(req, res)=>{
       // extract file path and other metadata
       const { path, filename } = req.file;
 
-      const imgURL = `${fullUrl}/${path.split('/').slice(1, mypath.length).join('/')}`
+      const mypath = path.split('/')
+
+      const imgURL = `${fullUrl}/${mypath.slice(1, mypath.length).join('/')}`
 
 
       // insert file path and metadata into database
       const {userName, lastName, firstName, email} = req.body;
+      const sql =  'INSERT INTO users (userName, lastName, firstName, email, profilepicture) VALUES(?, ?, ?, ?, ?)';
+      const values = [userName, lastName, firstName, email, imgURL]
 
-      const connection = await getConnection();
-      const result = await connection.query(
-        'INSERT INTO users (userName, lastName, firstName, email, profilepicture) VALUES(?, ?, ?, ?, ?)',
-          [userName, lastName, firstName, email, imgURL]
-        );
+      connection.query(sql, values, (err, result) => {
+        if (err) {
+          
+          return res.status(404).json({message: 'Image was upl'})
+        }
+        console.log(result);
       return res.status(200).json({ message: 'Image uploaded successfully' });
+
+      });
+
     });
   } catch (error) {
     console.error(error);
