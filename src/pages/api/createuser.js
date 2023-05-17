@@ -1,6 +1,13 @@
 import {connection} from "./connection.js";
 
 import multer from 'multer';
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, './public/images'); // save images to the public/images directory
@@ -11,13 +18,6 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
 
 const addUser = async(req, res)=>{
   let fullUrl = req.headers.origin
@@ -74,7 +74,7 @@ const editUser = async(req, res) => {
 }
 
 const deleteUser = async(req, res) => {
-  console.log(req.body);
+  console.log(req);
   try {
     return res.status(200).json({ message: 'user deleted successfully'});
   } catch (error) {

@@ -21,14 +21,15 @@ export default  function Home({users}) {
     const params = {
       method: 'DELETE',
       body: formData,
-      headers: {
-        'content-type':'application/json; boundary=----WebKitFormBoundary5GT3XfgkP0Jl4KV7',
-      }
+      // headers: {
+        'content-type': 'multipart/form-data; boundary=----WebKitFormBoundaryEQJLrdFjy8AKCNRQ',
+      // }
     }
 
     fetch('http://localhost:3000/api/createuser', params)
     .then(response=>response.json())
     .then(res=>{
+      
       console.log(res);
     })
     .catch(err=>{
