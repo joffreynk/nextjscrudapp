@@ -10,8 +10,8 @@ export default  function Home({users}) {
     const formData = new FormData()
     const retrievedUrl = url.split('/').slice(3).join('/');
 
-    formData.append('userId', id)
-    formData.append('filepath',`./public/${retrievedUrl}`)
+    formData.set('userId', id)
+    formData.set('filepath',`./public/${retrievedUrl}`)
 
     const mybody = JSON.stringify({
       userId: id,
@@ -20,13 +20,10 @@ export default  function Home({users}) {
 
     const params = {
       method: 'DELETE',
-      body: mybody,
-      // headers: {
+      body: formData,
+      headers: {
         'content-type':'application/json; boundary=----WebKitFormBoundary5GT3XfgkP0Jl4KV7',
-      // }
-      // //   userId: id,
-      // //  filepath: `./public/${retrievedUrl}`,
-
+      }
     }
 
     fetch('http://localhost:3000/api/createuser', params)

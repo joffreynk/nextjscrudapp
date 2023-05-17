@@ -19,6 +19,7 @@ export default function CreateUser() {
   
   const createUserToAPI = data => {
     let tt = new FormData()
+    console.log('==============front-end =============');
 
     tt.set('image', image)
     tt.set('firstName', data.firstName)

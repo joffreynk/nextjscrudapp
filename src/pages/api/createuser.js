@@ -40,7 +40,6 @@ const addUser = async(req, res)=>{
 
       connection.query(sql, values, (err, result) => {
         if (err) {
-
           return res.status(404).json({message: 'Image was upl'})
         }
         console.log(result);
