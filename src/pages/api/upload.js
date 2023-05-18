@@ -1,5 +1,5 @@
 
-const createUser = () => {
+const createUser = (req, res) => {
     
 }
 

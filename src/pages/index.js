@@ -7,34 +7,31 @@ import Image from 'next/image';
 export default  function Home({users}) {
   
   const deleteUser = (id, url)=>{
-    const formData = new FormData()
+    
+    let tt = new FormData()
+
     const retrievedUrl = url.split('/').slice(3).join('/');
 
-    formData.set('userId', id)
-    formData.set('filepath',`./public/${retrievedUrl}`)
+    tt.set('userId', id)
+    tt.set('filepath',`./public/${retrievedUrl}`)
 
-    const mybody = JSON.stringify({
-      userId: id,
-      filepath: `./public/${retrievedUrl}`
-    })
-
-    const params = {
-      method: 'DELETE',
-      body: formData,
-      // headers: {
-        'content-type': 'multipart/form-data; boundary=----WebKitFormBoundaryEQJLrdFjy8AKCNRQ',
-      // }
-    }
-
-    fetch('http://localhost:3000/api/createuser', params)
-    .then(response=>response.json())
-    .then(res=>{
-      
-      console.log(res);
-    })
-    .catch(err=>{
-      console.log(err);
-    })
+    // const mybody = JSON.stringify({
+    //   userId: id,
+    //   filepath: `./public/${retrievedUrl}`
+    // })
+  
+      const params = {
+        method: 'DELETE',
+        body: tt,
+        'content-type': 'multipart/form-data; boundary=----WebKitFormBoundary5GT3XfgkP0Jl4K',
+      }
+      fetch('http://localhost:3000/api/createuser', params)
+      .then(response=>response.json())
+      .then(res=>{
+        console.log(res);
+      }).catch(err=>{
+        console.log(err);
+      })
   }
 
   return (
