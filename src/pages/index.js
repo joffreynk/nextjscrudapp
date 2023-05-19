@@ -5,16 +5,10 @@ import CreateUser from '@/components/createUser'
 import Image from 'next/image';
 
 export default  function Home({users}) {
-  console.log(users);
   
   const deleteUser = (id, url)=>{
-    
-    let tt = new FormData()
 
-    const retrievedUrl = url.split('/').slice(3).join('/');
-
-    // tt.set('userId', id)
-    // tt.set('filepath',`./public/${retrievedUrl}`)
+    const retrievedUrl = url.split('/').slice(3).join('/')
 
     const mybody = JSON.stringify({
       userId: id,
