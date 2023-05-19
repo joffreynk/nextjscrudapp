@@ -5,6 +5,7 @@ import CreateUser from '@/components/createUser'
 import Image from 'next/image';
 
 export default  function Home({users}) {
+  console.log(users);
   
   const deleteUser = (id, url)=>{
     
@@ -12,20 +13,23 @@ export default  function Home({users}) {
 
     const retrievedUrl = url.split('/').slice(3).join('/');
 
-    tt.set('userId', id)
-    tt.set('filepath',`./public/${retrievedUrl}`)
+    // tt.set('userId', id)
+    // tt.set('filepath',`./public/${retrievedUrl}`)
 
-    // const mybody = JSON.stringify({
-    //   userId: id,
-    //   filepath: `./public/${retrievedUrl}`
-    // })
+    const mybody = JSON.stringify({
+      userId: id,
+      filepath: `./public/${retrievedUrl}`
+    })
   
       const params = {
         method: 'DELETE',
-        body: tt,
-        'content-type': 'multipart/form-data; boundary=----WebKitFormBoundary5GT3XfgkP0Jl4K',
+        body: mybody,
+        headers: {
+          // 'content-type': 'multipart/form-data; boundary=----WebKitFormBoundary5GT3XfgkP0Jl4K',
+          'content-type': 'application/json',
+        }
       }
-      fetch('http://localhost:3000/api/createuser', params)
+      fetch('http://localhost:3000/api/delete', params)
       .then(response=>response.json())
       .then(res=>{
         console.log(res);
