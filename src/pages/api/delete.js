@@ -2,15 +2,14 @@ import fs from 'fs'
 import { connection } from './connection';
 
 export default function deleteuser(req, res) {
-    const {id, filepath} = req.body
     try {
-        console.log(req.body);
+        const {userId, filepath} = req.body
         if(fs.existsSync(filepath)) fs.unlinkSync(filepath)
-        const sql = 'delete from users where id = ?'
+        const sql = 'DELETE FROM users WHERE id = ?'
 
-        connection.query(sql, [id], (error, result)=>{
+        connection.query(sql, [userId], (error, result)=>{
             if(error) res.status(401).json({message: error.message})
-            
+            console.log(result);
             res.status(201).json({message: 'USER DELETED SUCCESSFULLY'})
         })
     } catch (error) {
