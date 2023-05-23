@@ -1,4 +1,6 @@
 import {connection} from "./connection.js";
+import os from 'os';
+import fs from 'fs';
 
 import multer from 'multer';
 
@@ -24,26 +26,25 @@ const addUser = async(req, res)=>{
   try {
     await upload.single('image')(req, res, async (err) => {
       if (err) {
-        return res.status(400).json({ message: 'Failed to upload image' });
+        return res.status(400).json({ message: 'Uploading error, please verify your image' });
       }
 
       // extract file path and other metadata
       const { path } = req.file;
 
-      const imgURL = `${fullUrl}/${path.split('/').slice(1).join('/')}`
+      const imgURL = `${fullUrl}/${path.split(os.type() == 'Windows_NT' ? '\\' : '/').slice(1).join('/')}`
 
-
-      // insert file path and metadata into database
+      // insert file path and metadata into data
       const {userName, lastName, firstName, email} = req.body;
       const sql =  'INSERT INTO users (userName, lastName, firstName, email, profilepicture) VALUES(?, ?, ?, ?, ?)';
       const values = [userName, lastName, firstName, email, imgURL]
 
       connection.query(sql, values, (err, result) => {
         if (err) {
-          return res.status(404).json({message: 'Image was upl'})
+          if(fs.existsSync(path)) fs.unlinkSync(path);
+          return res.status(404).json({message: 'The User is not created'})
         }
-        console.log(result);
-      return res.status(200).json({ message: 'Image uploaded successfully' });
+      return res.status(200).json({ message: 'User created successfully successfully' });
 
       });
 

@@ -4,6 +4,7 @@ import { connection } from './connection';
 export default function deleteuser(req, res) {
     try {
         const {userId, filepath} = req.body
+        console.log(req.body);
         if(fs.existsSync(filepath)) fs.unlinkSync(filepath)
         const sql = 'DELETE FROM users WHERE id = ?'
 
